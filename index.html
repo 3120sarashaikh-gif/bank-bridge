@@ -1,262 +1,1051 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bank Bridge | Empowering India's Underserved</title>
-  <meta name="description" content="Bank Bridge is a multilingual offline platform empowering India's underserved with financial literacy, voice lessons, and accessible education." />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Bank Bridge — Financial Literacy for All</title>
+<meta name="description" content="Bank Bridge is a multilingual, offline-capable financial education platform for underserved communities in India. It is privacy-preserving and non-transactional." />
 
-  <style>
-    /* ---------- THEME ---------- */
-    :root {
-      --primary: #004aad;
-      --secondary: #007bff;
-      --accent: #0c62f5;
-      --text-dark: #1a1a1a;
-      --text-light: #444;
-      --bg: linear-gradient(180deg, #f3f7ff, #e6ecff);
-      --glass: rgba(255,255,255,0.65);
-      --radius: 18px;
-    }
+<!-- -------------------------
+     PROFESSIONAL AESTHETIC STYLES
+     Glass, spacing, readable typography,
+     restrained color palette.
+-------------------------- -->
+<style>
+  :root{
+    --bg-0: #f4f7fb;
+    --bg-1: #eef3fb;
+    --card: rgba(255,255,255,0.85);
+    --glass-border: rgba(15,35,70,0.06);
+    --primary: #0f4c81; /* deep professional blue */
+    --accent: #0a84ff;  /* highlight */
+    --muted: #6b7280;
+    --success: #1e7e34;
+    --danger: #d22b2b;
+    --radius: 14px;
+    --shadow-sm: 0 6px 18px rgba(15,35,70,0.06);
+    --shadow-lg: 0 20px 40px rgba(15,35,70,0.08);
+    --maxw: 1120px;
+    --gap: 18px;
+    --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
-      background: var(--bg);
-      color: var(--text-dark);
-      text-align: center;
-      scroll-behavior: smooth;
-    }
+  html,body{height:100%}
+  body{
+    margin:0;
+    min-height:100%;
+    background:linear-gradient(180deg,var(--bg-0),var(--bg-1));
+    color:var(--primary);
+    font-family:var(--font-sans);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.45;
+    padding:28px;
+  }
 
-    /* ---------- HEADER ---------- */
-    header {
-      background: white;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-      padding: 1rem;
-      font-weight: 600;
-      color: var(--primary);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+  /* Layout container */
+  .container{
+    max-width:var(--maxw);
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:var(--gap);
+  }
 
-    /* ---------- SECTION WRAPPER ---------- */
-    .section {
-      max-width: 850px;
-      margin: 2rem auto;
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      border-radius: var(--radius);
-      padding: 2rem;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
+  /* Header */
+  header.site{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    background:var(--card);
+    border:1px solid var(--glass-border);
+    border-radius:var(--radius);
+    padding:16px 20px;
+    box-shadow:var(--shadow-sm);
+    position:sticky;
+    top:18px;
+    z-index:20;
+  }
 
-    .section:hover { transform: translateY(-3px); }
+  .brand{
+    display:flex;
+    gap:14px;
+    align-items:center;
+  }
 
-    h1 {
-      color: var(--primary);
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
+  .brand .logo{
+    width:48px;height:48px;border-radius:10px;
+    display:grid;place-items:center;font-weight:700;
+    background:linear-gradient(135deg,var(--primary),var(--accent));
+    color:white;font-size:18px;
+  }
 
-    h2 {
-      color: var(--secondary);
-      font-size: 1.4rem;
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
-    }
+  .brand .title{
+    display:flex;flex-direction:column;line-height:1;
+  }
 
-    p {
-      max-width: 700px;
-      margin: 0.7rem auto;
-      line-height: 1.6;
-      color: var(--text-light);
-      font-size: 1.05rem;
-    }
+  .brand .title .main{font-weight:700;font-size:18px;color:var(--primary)}
+  .brand .title .sub{font-size:12px;color:var(--muted)}
 
-    .btn {
-      display: inline-block;
-      background: var(--primary);
-      color: white;
-      padding: 0.8rem 1.6rem;
-      margin: 0.6rem;
-      border-radius: 10px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: 0.3s;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-    }
-    .btn:hover { background: var(--secondary); transform: translateY(-2px); }
+  nav.controls{display:flex;align-items:center;gap:10px}
+  nav.controls a, nav.controls button{
+    font-weight:600;
+    color:var(--primary);
+    background:transparent;border:0;padding:8px 10px;border-radius:8px;cursor:pointer;
+  }
 
-    select {
-      padding: 0.7rem 1rem;
-      border: 2px solid var(--primary);
-      border-radius: 10px;
-      background: white;
-      font-weight: 600;
-      color: var(--primary);
-      margin-top: 1rem;
-      font-size: 1rem;
-    }
+  nav.controls a:hover, nav.controls button:hover{background:rgba(10,80,160,0.06)}
 
-    footer {
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      color: #555;
-      background: white;
-      padding: 1.5rem;
-      box-shadow: 0 -3px 10px rgba(0,0,0,0.05);
-    }
+  /* Hero */
+  .hero{
+    display:grid;
+    grid-template-columns:1fr 420px;
+    gap:24px;
+    align-items:start;
+  }
 
-    @media (max-width: 600px) {
-      h1 { font-size: 1.6rem; }
-      .btn { width: 90%; margin: 0.5rem auto; display: block; }
-    }
-  </style>
+  .hero-main{
+    padding:28px;
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow-lg);
+    border:1px solid var(--glass-border);
+  }
+
+  .hero-main h1{margin:0;font-size:28px;font-weight:700;color:var(--primary)}
+  .hero-main p{margin-top:12px;color:var(--muted);max-width:70ch}
+  .hero-actions{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:10px 14px;border-radius:10px;border:1px solid rgba(15,35,70,0.06);background:white;color:var(--primary);font-weight:700;cursor:pointer}
+  .btn.primary{background:linear-gradient(90deg,var(--primary),var(--accent));color:white;border:0}
+  .btn.ghost{background:transparent;border:1px solid rgba(15,35,70,0.06)}
+
+  /* Right feed */
+  .hero-side{
+    padding:16px;border-radius:12px;background:var(--card);border:1px solid var(--glass-border);box-shadow:var(--shadow-sm);
+  }
+  .feed-item{padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.5));margin-bottom:12px;border:1px solid rgba(0,0,0,0.02)}
+  .feed-item .tag{font-size:12px;color:var(--accent);font-weight:700}
+  .feed-item p{margin-top:8px;color:var(--muted);font-size:14px}
+
+  /* Sections grid */
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 380px;
+    gap:24px;
+    align-items:start;
+  }
+
+  .card{
+    padding:18px;border-radius:12px;background:var(--card);border:1px solid var(--glass-border);box-shadow:var(--shadow-sm)
+  }
+
+  .side{
+    position:sticky;top:110px;
+  }
+
+  /* Feature cards */
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px}
+  .feature{padding:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(255,255,255,0.9));border:1px solid rgba(10,20,40,0.03)}
+  .feature h4{margin:0;font-size:16px;color:var(--primary);font-weight:700}
+  .feature p{margin-top:8px;color:var(--muted);font-size:14px}
+
+  /* Buttons area with spacing and wrap */
+  .button-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;align-items:center;justify-content:flex-start}
+  .button-row .btn{min-width:180px;text-align:center}
+
+  /* Forms and inputs */
+  input[type="text"], textarea, select {
+    width:100%;padding:10px;border-radius:10px;border:1px solid rgba(10,20,40,0.06);font-size:14px;margin-top:8px;background:white;color:var(--primary)
+  }
+
+  /* Notebook & progress */
+  .notebook{display:flex;flex-direction:column;gap:10px}
+  .note{padding:12px;border-radius:8px;background:linear-gradient(180deg,#fff,#fbfdff);border:1px solid rgba(10,20,40,0.03);text-align:left;color:var(--muted)}
+
+  /* Chat / assistant */
+  .assistant{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:12px;background:var(--card);border:1px solid var(--glass-border)}
+  .chat-window{height:280px;overflow:auto;padding:10px;border-radius:8px;background:#f8fbff;border:1px solid rgba(15,35,70,0.03)}
+  .chat-input{display:flex;gap:8px;margin-top:8px}
+  .chat-input input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(10,20,40,0.06)}
+  .chip{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(10,20,40,0.04);color:var(--muted);font-weight:600;font-size:13px}
+
+  /* Small utilities */
+  .muted{color:var(--muted)}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(10,20,40,0.04),transparent);margin:18px 0;border-radius:6px}
+
+  footer{margin-top:30px;text-align:center;color:var(--muted);font-size:13px;padding:20px}
+
+  @media (max-width:1100px){
+    .hero{grid-template-columns:1fr}
+    .grid{grid-template-columns:1fr}
+    .features{grid-template-columns:1fr}
+    .hero-side{position:static}
+  }
+
+  @media (max-width:520px){
+    body{padding:14px}
+    .brand .title .main{font-size:16px}
+    .brand .logo{width:40px;height:40px}
+    .hero-main{padding:16px}
+  }
+</style>
 </head>
-
 <body>
-  <header>🏦 <strong>Bank Bridge</strong> — Financial Literacy for Every Indian</header>
+  <div class="container">
 
-  <main>
-    <!-- LANGUAGE SELECTION -->
-    <section class="section">
-      <h1>Empowering India's Underserved</h1>
-      <p>Bank Bridge is a free, offline-capable learning platform that helps families understand banking, savings, and government benefits in their own language.</p>
-      <select id="languageSelect">
-        <option value="en">English</option>
-        <option value="hi">हिंदी (Hindi)</option>
-        <option value="ta">தமிழ் (Tamil)</option>
-        <option value="bn">বাংলা (Bengali)</option>
-        <option value="te">తెలుగు (Telugu)</option>
-        <option value="ml">മലയാളം (Malayalam)</option>
-        <option value="mr">मराठी (Marathi)</option>
-        <option value="gu">ગુજરાતી (Gujarati)</option>
-      </select>
-    </section>
-
-    <!-- BASIC FINANCIAL MODULE -->
-    <section class="section">
-      <h2>💰 Understanding Bank Accounts</h2>
-      <p id="lessonText">A bank account keeps your money safe and lets you save, withdraw, or receive payments directly. Zero-balance accounts like PMJDY are made for easy access.</p>
-      <a href="#" class="btn" id="playLesson">🎧 Listen</a>
-      <a href="#" class="btn" id="showQuiz">🧠 Take Quiz</a>
-      <div id="quizBox" style="display:none; margin-top:1rem;">
-        <p><strong>Question:</strong> What is the main benefit of a zero-balance account?</p>
-        <button class="btn" onclick="checkAnswer(true)">✅ No minimum deposit needed</button>
-        <button class="btn" onclick="checkAnswer(false)">💸 Higher interest rate</button>
+    <!-- HEADER -->
+    <header class="site" role="banner" aria-label="Bank Bridge header">
+      <div class="brand" aria-hidden="false">
+        <div class="logo" aria-hidden="true">BB</div>
+        <div class="title">
+          <div class="main" data-i18n="siteTitle">Bank Bridge</div>
+          <div class="sub muted" data-i18n="siteTag">Financial literacy, local access.</div>
+        </div>
       </div>
-      <p id="quizResult"></p>
+
+      <nav class="controls" aria-label="Primary navigation">
+        <a href="#features" data-i18n="navFeatures">Features</a>
+        <a href="#learn" data-i18n="navLearn">Learning</a>
+        <a href="#assistant" data-i18n="navAssistant">Assistant</a>
+        <button id="langBtn" class="btn ghost" aria-haspopup="dialog" data-i18n="navLang">Language</button>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-main card" role="region" aria-labelledby="heroTitle">
+        <h1 id="heroTitle" data-i18n="heroTitle">Practical financial knowledge for real life</h1>
+        <p data-i18n="heroLead">Bank Bridge provides concise, local-language lessons, voice guidance, practical checklists, and offline access for underserved communities. No login, no personal data required.</p>
+
+        <div class="hero-actions">
+          <button class="btn primary" onclick="scrollToId('features')" data-i18n="getStarted">Get started</button>
+          <button class="btn" onclick="scrollToId('learn')" data-i18n="viewModules">View modules</button>
+          <button class="btn" onclick="openNotebook()" data-i18n="openNotebook">Open notebook</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          <div class="chip" data-i18n="noCost">No cost</div>
+          <div class="chip" data-i18n="noData">No personal data</div>
+          <div class="chip" data-i18n="offlineReady">Offline ready</div>
+          <div class="chip" data-i18n="multilingual">Multilingual</div>
+        </div>
+      </div>
+
+      <aside class="hero-side">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:700" data-i18n="sideTitle">Local Insights</div>
+            <div class="muted" style="font-size:12px" data-i18n="verified">Verified summaries</div>
+          </div>
+
+          <div style="margin-top:12px">
+            <div class="feed-item">
+              <div class="tag">Accounts</div>
+              <p data-i18n="feed1">Zero-balance accounts remove the barrier of minimum deposits and simplify inclusion.</p>
+            </div>
+
+            <div class="feed-item">
+              <div class="tag">Safety</div>
+              <p data-i18n="feed2">Never share PIN or OTP. Bank Bridge outlines safe verification steps.</p>
+            </div>
+
+            <div class="feed-item">
+              <div class="tag">Local support</div>
+              <p data-i18n="feed3">Find nearby agents and service centres with step-by-step directions.</p>
+            </div>
+          </div>
+        </div>
+      </aside>
     </section>
 
-    <!-- GOVERNMENT SCHEMES -->
-    <section class="section">
-      <h2>🏛️ Government Schemes</h2>
-      <p>Learn about key welfare programs like PM-KISAN, PMJDY, and Atal Pension Yojana. Our built-in summaries explain eligibility and benefits — offline.</p>
-      <a class="btn" href="#" id="schemeBtn">📘 View Local Schemes</a>
-      <p id="schemeText" style="margin-top:1rem; display:none;">
-        🔹 <b>PMJDY:</b> Free zero-balance savings accounts.<br>
-        🔹 <b>PM-KISAN:</b> Direct income support for farmers.<br>
-        🔹 <b>Atal Pension Yojana:</b> Monthly pension for workers in the unorganised sector.<br>
-      </p>
+    <!-- MAIN GRID -->
+    <section id="features" class="grid" aria-labelledby="featuresHeading">
+      <!-- left column -->
+      <div>
+        <!-- Features overview -->
+        <div class="card" id="overview">
+          <h2 id="featuresHeading" data-i18n="featuresTitle">Core Features</h2>
+          <p data-i18n="featuresLead">A compact set of modules designed to teach essential financial skills, reinforce learning with interactive quizzes, and connect users with practical local services.</p>
+
+          <div class="features" aria-hidden="false">
+            <div class="feature">
+              <h4 data-i18n="f1Title">Multilingual Lessons</h4>
+              <p data-i18n="f1Lead">Short narrated lessons in major Indian languages, written and audio, with simple illustrations and concise examples for immediate use.</p>
+            </div>
+
+            <div class="feature">
+              <h4 data-i18n="f2Title">Interactive Quizzes</h4>
+              <p data-i18n="f2Lead">Micro-quizzes after each lesson to increase retention and confidence, with instant feedback and gentle remediation.</p>
+            </div>
+
+            <div class="feature">
+              <h4 data-i18n="f3Title">Voice Assistant</h4>
+              <p data-i18n="f3Lead">Voice-first guidance for users with limited literacy; the assistant answers common questions and reads checklists aloud.</p>
+            </div>
+
+            <div class="feature">
+              <h4 data-i18n="f4Title">Local Action Guides</h4>
+              <p data-i18n="f4Lead">Concise instructions and offline directions for visiting nearby Bank Mitra and public service centres to complete key tasks.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Learning modules -->
+        <div class="card" id="learn" tabindex="0" aria-labelledby="learnHeading">
+          <h2 id="learnHeading" data-i18n="learnTitle">Learning Modules</h2>
+          <p data-i18n="learnLead">Structured modules that progressively build practical skills. Each module includes a short lesson, an audio narration, and a micro-quiz.</p>
+
+          <!-- module list -->
+          <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px">
+            <div class="note" role="article">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div>
+                  <div style="font-weight:700" data-i18n="m1Title">Module 1 — Banking Essentials</div>
+                  <div class="muted" data-i18n="m1Sub">Accounts, deposits, withdrawals, and passbooks</div>
+                </div>
+                <div>
+                  <button class="btn" onclick="openModule(1)" data-i18n="start">Start</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="note" role="article">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div>
+                  <div style="font-weight:700" data-i18n="m2Title">Module 2 — Benefits & Schemes</div>
+                  <div class="muted" data-i18n="m2Sub">PMJDY, PM-KISAN, pension schemes explained</div>
+                </div>
+                <div><button class="btn" onclick="openModule(2)" data-i18n="start">Start</button></div>
+              </div>
+            </div>
+
+            <div class="note" role="article">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div>
+                  <div style="font-weight:700" data-i18n="m3Title">Module 3 — Safe Digital Payments</div>
+                  <div class="muted" data-i18n="m3Sub">UPI, OTP hygiene, identifying scams</div>
+                </div>
+                <div><button class="btn" onclick="openModule(3)" data-i18n="start">Start</button></div>
+              </div>
+            </div>
+
+            <div class="note" role="article">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div>
+                  <div style="font-weight:700" data-i18n="m4Title">Module 4 — Budgeting & Savings</div>
+                  <div class="muted" data-i18n="m4Sub">Simple planning, saving options, and small goals</div>
+                </div>
+                <div><button class="btn" onclick="openModule(4)" data-i18n="start">Start</button></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Notebook -->
+        <div class="card" id="notebook">
+          <h2 data-i18n="notebookTitle">Personal Notebook</h2>
+          <p data-i18n="notebookLead">Save short notes, checklists, and links locally. Your notes remain on this device only.</p>
+          <div class="notebook">
+            <textarea id="noteInput" rows="3" placeholder="" aria-label="Add a note"></textarea>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+              <button class="btn" onclick="saveNote()" data-i18n="saveNote">Save note</button>
+              <button class="btn" onclick="clearNotes()" data-i18n="clearNotes">Clear all</button>
+              <div class="muted" id="noteCount"></div>
+            </div>
+            <div id="noteList" style="margin-top:12px"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- right column (side) -->
+      <aside class="side">
+        <!-- Assistant card -->
+        <div class="card assistant" id="assistant" role="region" aria-labelledby="assistantTitle">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:700" id="assistantTitle" data-i18n="assistantTitle">Assistant</div>
+            <div style="font-size:12px;color:var(--muted)" data-i18n="assistantSub">Voice and text guidance</div>
+          </div>
+
+          <div class="chat-window" id="chatWindow" aria-live="polite">
+            <div style="font-size:13px;color:var(--muted);padding:6px" data-i18n="assistantGreeting">Ask questions or request a narrated checklist.</div>
+          </div>
+
+          <div class="chat-input">
+            <input id="chatInput" type="text" placeholder="" aria-label="Type your question" />
+            <button class="btn primary" id="chatSend" data-i18n="ask">Ask</button>
+          </div>
+
+          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn" id="voiceBtn" data-i18n="voiceSpeak">Speak</button>
+            <button class="btn" id="helpBtn" data-i18n="help">Help</button>
+          </div>
+        </div>
+
+        <!-- Quick actions -->
+        <div class="card" style="margin-top:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:700" data-i18n="quickTitle">Quick actions</div>
+            <div class="muted" style="font-size:12px" data-i18n="quickSub">For immediate needs</div>
+          </div>
+
+          <div class="button-row" style="margin-top:12px">
+            <button class="btn" onclick="openChecklist()" data-i18n="checklist">Checklist for opening account</button>
+            <button class="btn" onclick="showLocalHelp()" data-i18n="findHelp">Find local help</button>
+            <button class="btn" onclick="downloadAudio()" data-i18n="downloadAudio">Download lesson audio</button>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="card" style="margin-top:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:700" data-i18n="progressTitle">Progress</div>
+            <div class="muted" style="font-size:12px" data-i18n="progressSub">Saved locally</div>
+          </div>
+          <div style="margin-top:12px">
+            <div id="progressBars" style="display:flex;flex-direction:column;gap:10px"></div>
+            <div style="margin-top:8px;display:flex;gap:8px">
+              <button class="btn" onclick="resetProgress()" data-i18n="reset">Reset</button>
+              <button class="btn" onclick="exportProgress()" data-i18n="export">Export</button>
+            </div>
+          </div>
+        </div>
+
+      </aside>
     </section>
 
-    <!-- LOCAL ACTION -->
-    <section class="section">
-      <h2>📍 Nearest Financial Help Centres</h2>
-      <p>Find your nearest <strong>Bank Mitra</strong> or <strong>Common Service Centre (CSC)</strong> using offline stored maps and guidance once synced online.</p>
-      <a class="btn" href="#" id="offlineHelp">🧭 Offline Locator</a>
-      <p id="offlineText" style="margin-top:1rem; display:none;">Our offline locator feature will guide you step-by-step using saved data from your first online visit.</p>
-    </section>
+    <footer>
+      <div data-i18n="footerText">Bank Bridge — privacy-first financial literacy. This platform stores data only on this device; no user account or payment is required.</div>
+    </footer>
+  </div>
 
-    <!-- VOICE MODULE -->
-    <section class="section">
-      <h2>🗣️ Learn by Listening</h2>
-      <p>Press play to hear key lessons in your selected language. Works offline once loaded.</p>
-      <a href="#" class="btn" id="voiceSummary">🔊 Play Overview</a>
-    </section>
-  </main>
-
-  <footer>© 2025 Bank Bridge — Inclusive, Non-Transactional, and Privacy-Respecting</footer>
-
+  <!-- -------------------------
+       TRANSLATION & LOGIC SCRIPT
+       All strings visible in UI are keyed for translation:
+       - Elements that should be translated have attribute data-i18n="key"
+       - Translation table below provides content for multiple languages
+       - Switching language updates all data-i18n elements
+  ------------------------- -->
   <script>
-    /* --- LANGUAGE + TRANSLATION DATA --- */
-    const lessons = {
-      en: "A bank account keeps your money safe and lets you receive and save easily. Zero-balance accounts like PMJDY are made for everyone.",
-      hi: "एक बैंक खाता आपका पैसा सुरक्षित रखता है और आसानी से प्राप्त करने और बचत करने में मदद करता है। PMJDY जैसे शून्य-बैलेंस खाते सभी के लिए हैं।",
-      ta: "ஒரு வங்கி கணக்கு உங்கள் பணத்தை பாதுகாப்பாக வைக்கிறது மற்றும் அதை எளிதாக சேமிக்கவும் பெறவும் உதவுகிறது. PMJDY போன்ற பூஜ்ஜிய இருப்பு கணக்குகள் அனைவருக்கும் திறந்தவையாக உள்ளன.",
-      bn: "একটি ব্যাংক অ্যাকাউন্ট আপনার টাকা সুরক্ষিত রাখে এবং সহজে সঞ্চয় করতে সহায়তা করে। PMJDY এর মতো জিরো ব্যালান্স অ্যাকাউন্ট সবাই ব্যবহার করতে পারে।",
-      te: "బ్యాంక్ ఖాతా మీ డబ్బును సురక్షితంగా ఉంచుతుంది మరియు సులభంగా పొదుపు చేయడానికి సహాయపడుతుంది. PMJDY వంటి జీరో బ్యాలెన్స్ ఖాతాలు అందరికీ అందుబాటులో ఉన్నాయి.",
-      ml: "ഒരു ബാങ്ക് അക്കൗണ്ട് നിങ്ങളുടെ പണം സുരക്ഷിതമായി സൂക്ഷിക്കുന്നു. പി.എം.ജെ.ഡി.വൈ പോലുള്ള സീറോ ബാലൻസ് അക്കൗണ്ടുകൾ എല്ലാവർക്കും ലഭ്യമാണ്.",
-      mr: "बँक खाते तुमचे पैसे सुरक्षित ठेवते आणि सहज बचत करण्यास मदत करते. पीएमजेडीवाय सारखी शून्य शिल्लक खाती सर्वांसाठी उपलब्ध आहेत.",
-      gu: "બેંક એકાઉન્ટ તમારું પૈસું સુરક્ષિત રાખે છે અને બચત કરવા મદદ કરે છે. PMJDY જેવી ઝીરો બેલેન્સ એકાઉન્ટ દરેક માટે છે."
+  (function(){
+    /* -------------------------
+       Translation table
+       Expand or refine messages per language as needed.
+       Keys map to data-i18n attributes.
+    ------------------------- */
+    const TRANSLATIONS = {
+      en: {
+        siteTitle: "Bank Bridge",
+        siteTag: "Financial literacy, local access.",
+        navFeatures: "Features",
+        navLearn: "Learning",
+        navAssistant: "Assistant",
+        navLang: "Language",
+        heroTitle: "Practical financial knowledge for real life",
+        heroLead: "Bank Bridge provides concise, local-language lessons, voice guidance, practical checklists, and offline access for underserved communities. No login, no personal data required.",
+        getStarted: "Get started",
+        viewModules: "View modules",
+        openNotebook: "Open notebook",
+        noCost: "No cost",
+        noData: "No personal data",
+        offlineReady: "Offline ready",
+        multilingual: "Multilingual",
+        sideTitle: "Local Insights",
+        verified: "Verified summaries",
+        feed1: "Zero-balance accounts remove the barrier of minimum deposits and simplify inclusion.",
+        feed2: "Never share PIN or OTP. Bank Bridge outlines safe verification steps.",
+        feed3: "Find nearby agents and service centres with step-by-step directions.",
+        featuresTitle: "Core Features",
+        featuresLead: "A compact set of modules designed to teach essential financial skills, reinforce learning with interactive quizzes, and connect users with practical local services.",
+        f1Title: "Multilingual Lessons",
+        f1Lead: "Short narrated lessons in major Indian languages, written and audio, with clear examples.",
+        f2Title: "Interactive Quizzes",
+        f2Lead: "Micro-quizzes after each lesson to increase retention and confidence.",
+        f3Title: "Voice Assistant",
+        f3Lead: "Voice-first guidance for users with limited literacy.",
+        f4Title: "Local Action Guides",
+        f4Lead: "Offline directions and checklists for completing tasks in person.",
+        learnTitle: "Learning Modules",
+        learnLead: "Structured modules that progressively build practical skills. Each module includes a short lesson, audio, and a quick quiz.",
+        m1Title: "Module 1 — Banking Essentials",
+        m1Sub: "Accounts, deposits, withdrawals, and passbooks",
+        m2Title: "Module 2 — Benefits & Schemes",
+        m2Sub: "PMJDY, PM-KISAN, pension schemes explained",
+        m3Title: "Module 3 — Safe Digital Payments",
+        m3Sub: "UPI, OTP hygiene, identifying scams",
+        m4Title: "Module 4 — Budgeting & Savings",
+        m4Sub: "Simple planning, saving options, and small goals",
+        start: "Start",
+        notebookTitle: "Personal Notebook",
+        notebookLead: "Save short notes and checklists locally. Notes remain on this device only.",
+        saveNote: "Save note",
+        clearNotes: "Clear all",
+        assistantTitle: "Assistant",
+        assistantSub: "Voice and text guidance",
+        assistantGreeting: "Ask questions or request a narrated checklist.",
+        ask: "Ask",
+        voiceSpeak: "Speak",
+        help: "Help",
+        quickTitle: "Quick actions",
+        quickSub: "For immediate needs",
+        checklist: "Checklist for opening account",
+        findHelp: "Find local help",
+        downloadAudio: "Download lesson audio",
+        progressTitle: "Progress",
+        progressSub: "Saved locally",
+        reset: "Reset",
+        export: "Export",
+        footerText: "Bank Bridge — privacy-first financial literacy. This platform stores data only on this device; no user account or payment is required."
+      },
+      hi: {
+        siteTitle: "बैंक ब्रिज",
+        siteTag: "वित्तीय साक्षरता, स्थानीय पहुँच।",
+        navFeatures: "विशेषताएँ",
+        navLearn: "पाठ्यक्रम",
+        navAssistant: "सहायक",
+        navLang: "भाषा",
+        heroTitle: "व्यावहारिक वित्तीय ज्ञान, जीवन के लिए",
+        heroLead: "बैंक ब्रिज संक्षिप्त, स्थानीय भाषा में पाठ, वॉइस मार्गदर्शन, व्यावहारिक चेकलिस्ट और ऑफ़लाइन पहुँच प्रदान करता है। लॉगिन या व्यक्तिगत डेटा नहीं।",
+        getStarted: "प्रारंभ करें",
+        viewModules: "मॉड्यूल देखें",
+        openNotebook: "नोटबुक खोलें",
+        noCost: "निःशुल्क",
+        noData: "कोई व्यक्तिगत डेटा नहीं",
+        offlineReady: "ऑफ़लाइन सक्षम",
+        multilingual: "बहुभाषी",
+        sideTitle: "स्थानीय जानकारी",
+        verified: "प्रमाणित सारांश",
+        feed1: "शून्य-बैलेंस खाते न्यूनतम जमा की बाधा को हटाते हैं और समावेशन आसान बनाते हैं।",
+        feed2: "कभी भी PIN या OTP साझा न करें। बैंक ब्रिज सुरक्षित सत्यापन कदम बताता है।",
+        feed3: "नजदीकी एजेंट और सेवा केंद्र खोजें।",
+        featuresTitle: "मुख्य विशेषताएँ",
+        featuresLead: "मॉड्यूलों का सेट जो आवश्यक वित्तीय कौशल सिखाता है, क्विज़ के साथ अधिगम सुदृढ़ करता है, और उपयोगकर्ताओं को स्थानीय सेवाओं से जोड़ता है।",
+        f1Title: "बहुभाषी पाठ",
+        f1Lead: "प्रधान भारतीय भाषाओं में छोटे कथन और ऑडियो पाठ।",
+        f2Title: "इंटरएक्टिव क्विज़",
+        f2Lead: "प्रत्येक पाठ के बाद स्मृति और आत्मविश्वास बढ़ाने के लिए।",
+        f3Title: "वॉइस असिस्टेंट",
+        f3Lead: "कम साक्षरता वाले उपयोगकर्ताओं के लिए वॉइस-फर्स्ट मार्गदर्शन।",
+        f4Title: "स्थानीय क्रिया मार्गदर्शिका",
+        f4Lead: "ऑफलाइन निर्देश और चेकलिस्ट।",
+        learnTitle: "अध्ययन मॉड्यूल",
+        learnLead: "क्रमिक मॉड्यूल जो व्यावहारिक कौशल बनाते हैं। प्रत्येक में पाठ, ऑडियो, और क्विज है।",
+        m1Title: "मॉड्यूल 1 — बैंकिंग बेसिक्स",
+        m1Sub: "खाते, जमा, निकासी, पासबुक",
+        m2Title: "मॉड्यूल 2 — लाभ एवं योजनाएँ",
+        m2Sub: "PMJDY, PM-KISAN, पेंशन योजनाएँ",
+        m3Title: "मॉड्युल 3 — सुरक्षित डिजिटल भुगतान",
+        m3Sub: "UPI, OTP सुरक्षा, धोखाधड़ी पहचान",
+        m4Title: "मॉड्युल 4 — बजट एवं बचत",
+        m4Sub: "सरल योजना, बचत विकल्प",
+        start: "शुरू करें",
+        notebookTitle: "वैयक्तिक नोटबुक",
+        notebookLead: "संक्षिप्त नोट और चेकलिस्ट सुरक्षित रूप से इस उपकरण पर रखें।",
+        saveNote: "नोट सहेजें",
+        clearNotes: "सभी साफ करें",
+        assistantTitle: "सहायक",
+        assistantSub: "वॉइस और टेक्स्ट मार्गदर्शन",
+        assistantGreeting: "प्रश्न पूछें या चेकलिस्ट सुनें।",
+        ask: "पूछें",
+        voiceSpeak: "वॉइस",
+        help: "मदद",
+        quickTitle: "त्वरित क्रियाएँ",
+        quickSub: "तुरंत आवश्यकताओं के लिए",
+        checklist: "खाता खोलने की चेकलिस्ट",
+        findHelp: "स्थानीय मदद खोजें",
+        downloadAudio: "पाठ ऑडियो डाउनलोड करें",
+        progressTitle: "प्रगति",
+        progressSub: "स्थानीय रूप से सहेजा गया",
+        reset: "रीसेट",
+        export: "निर्यात",
+        footerText: "बैंक ब्रिज — निजीता-प्रथम वित्तीय साक्षरता। यह प्लेटफॉर्म केवल इस डिवाइस पर डाटा संग्रहित करता है; कोई लॉगिन आवश्यक नहीं।"
+      },
+      ta: {
+        siteTitle: "பாங்க் பிரிட்ஜ்",
+        siteTag: "நிதித் திறன், உள்ளூரான அணுகல்.",
+        navFeatures: "சிறப்புகள்",
+        navLearn: "பாடங்கள்",
+        navAssistant: "உதவியாளர்",
+        navLang: "மொழி",
+        heroTitle: "நேரடி வாழ்க்கைக்கு நடைமுறை நிதி அறிவு",
+        heroLead: "பாங்க் பிரிட்ஜ்ச் சுருக்கமான உள்ளூர் மொழி பாடங்கள், குரல் வழிகாட்டுதல், செயலி சரிபார்ப்புகள் மற்றும் ஆஃப்லைன் அணுகலை வழங்குகிறது. உள் பூங்கா, தனிப்பட்ட தரவு தேவையில்லை.",
+        getStarted: "தொடங்கு",
+        viewModules: "மொடியூல்கள் பார்க்க",
+        openNotebook: "நோட்புக் திறக்க",
+        noCost: "இலவசம்",
+        noData: "தனிப்பட்ட தரவு இல்லை",
+        offlineReady: "ஆஃப்லைன் தயார்",
+        multilingual: "பன்மொழி",
+        sideTitle: "சாதாரண தெளிவுகள்",
+        verified: "தொழில்முறை சுருக்கங்கள்",
+        feed1: "ஜீரோ-பாலன்ஸ் கணக்குகள் குறைந்த ஜமா ஆதாரங்களை அகற்றி உட்புக்தலை எளிமைப்படுத்துகின்றன.",
+        feed2: "PIN அல்லது OTP பகிர வேண்டாம். பாதுகாப்பான சரிபார்ப்பு நடைமுறைகள் இங்கே உள்ளன.",
+        feed3: "உங்கள் அருகிலுள்ள முகவர்கள் மற்றும் சேவை மையங்களை கண்டறியுங்கள்.",
+        featuresTitle: "முக்கிய அம்சங்கள்",
+        featuresLead: "அவசியமான நிதித் திறன்களை கற்பிக்கும், தொடர்புடைய வலைப்பரிசோதனைகளுடன் கற்றலை உறுதிப்படுத்தும் மற்றும் உள்ளூரான சேவைகளுடன் இணைக்கும் தொகுப்பு.",
+        f1Title: "பன்மொழி பாடங்கள்",
+        f1Lead: "பெரும் இந்திய மொழிகளில் குறும்பாடங்கள் மற்றும் ஒலி பாடங்கள்.",
+        f2Title: "உட்புகு வினாடிகள்",
+        f2Lead: "கற்றல் தொடர்ந்து தக்க வைக்க சிறிய வினாடிகள்.",
+        f3Title: "குரல் உதவியாளர்",
+        f3Lead: "குறைந்த எழுத்தறிவு உடைய பயனர்களுக்கான குரல் வழிகாட்டி.",
+        f4Title: "உள்ளூரான செயல்முறை வழிகாட்டிகள்",
+        f4Lead: "ஆஃப்லைன் வழிமுறைகள் மற்றும் தட்டச்சு.",
+        learnTitle: "கற்றல் மொடியூல்கள்",
+        learnLead: "தொடர்பான முறையில் செயல்திறன் நிர்மிக்கக் கூடிய மொடியூல்கள்.",
+        m1Title: "மொடியூல் 1 — வங்கி அடிப்படைகள்",
+        m1Sub: "கணக்குகள், வைப்பு, நீக்கம், பாஸ்புக்",
+        m2Title: "மொடியூல் 2 — பயன்கள் மற்றும் திட்டங்கள்",
+        m2Sub: "PMJDY, PM-KISAN, ஓய்வூதிய திட்டங்கள்",
+        m3Title: "மொடியூல் 3 — பாதுகாப்பான டிஜிட்டல் கட்டணங்கள்",
+        m3Sub: "UPI, OTP பாதுகாப்பு, மோசடி கண்டுபிடிப்பு",
+        m4Title: "மொடியூல் 4 — பணமுயர்வு மற்றும் சேமிப்பு",
+        m4Sub: "எளிய திட்டம் மற்றும் சேமிப்பு விருப்பங்கள்",
+        start: "தொடங்கு",
+        notebookTitle: "தனிப்பட்ட நோட்புக்",
+        notebookLead: "சுருக்கமான குறிப்புகள் உங்கள் சாதனத்தில் சேமிக்கப்படுகின்றன.",
+        saveNote: "குறிப்பு சேமிக்க",
+        clearNotes: "முழுமையாக அகற்று",
+        assistantTitle: "உதவியாளர்",
+        assistantSub: "குரல் மற்றும் உரை வழிகாட்டி",
+        assistantGreeting: "வினாக்களை கேட்கவும் அல்லது ஒரு பட்டியலை கேட்கலாம்.",
+        ask: "கேளுங்கள்",
+        voiceSpeak: "மொழி",
+        help: "உதவி",
+        quickTitle: "விரைவு நடவடிக்கைகள்",
+        quickSub: "உடனடி தேவைகளுக்கு",
+        checklist: "கணக்கு தொடங்குமாறு பட்டியல்",
+        findHelp: "உள்ளூர் உதவி காண்க",
+        downloadAudio: "பாட ஒலி பதிவிறக்க",
+        progressTitle: "முன்னேற்றம்",
+        progressSub: "உள்ளூரில் சேமிக்கப்பட்டது",
+        reset: "மீட்டமை",
+        export: "இரட்டை",
+        footerText: "பாங்க் பிரிட்ஜ் — தனியுரிமை முதல்மை. இந்தப் பயன்பாடு தரவை வெறும் இந்த சாதனத்தில் மட்டுமே சேமிக்கிறது; கணக்கு தேவையில்லை."
+      }
     };
 
-    const summaryVoice = {
-      en: "Welcome to Bank Bridge. Learn how to save, access schemes, and build financial confidence.",
-      hi: "Bank Bridge में आपका स्वागत है। बचत करना, योजनाओं का लाभ उठाना और वित्तीय समझ बढ़ाना सीखें।",
-      ta: "Bank Bridge-க்கு வரவேற்கிறோம். சேமிக்கவும், திட்டங்களைப் பெறவும், நிதி நம்பிக்கையை உருவாக்கவும் கற்றுக்கொள்ளுங்கள்.",
-      bn: "Bank Bridge-এ স্বাগতম। কীভাবে সঞ্চয় করতে হয়, প্রকল্পগুলি ব্যবহার করতে হয় তা শিখুন।"
-    };
+    /* Supported languages in order */
+    const LANGS = ['en','hi','ta','bn','te','ml','mr','gu'];
 
-    const langSelect = document.getElementById("languageSelect");
-    const lessonText = document.getElementById("lessonText");
+    /* Utility: translate all nodes with data-i18n attribute */
+    function applyTranslations(lang){
+      const table = TRANSLATIONS[lang] || TRANSLATIONS.en;
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        if(table[key]) el.textContent = table[key];
+      });
+      // set placeholders and inputs separately
+      const chatInput = document.getElementById('chatInput');
+      if(chatInput) chatInput.placeholder = (lang==='hi'? 'प्रश्न लिखें...' : lang==='ta' ? 'கேள்வியை உள்ளிடவும்...' : 'Type your question...');
+      const noteInput = document.getElementById('noteInput');
+      if(noteInput) noteInput.placeholder = (lang==='hi'? 'अपना नोट यहाँ लिखें' : 'Write a note');
+    }
 
-    langSelect.addEventListener("change", () => {
-      const lang = langSelect.value;
-      lessonText.textContent = lessons[lang] || lessons.en;
+    /* Initialize language from storage or browser */
+    const savedLang = localStorage.getItem('bankbridge_lang') || (navigator.language ? navigator.language.slice(0,2) : 'en');
+    let currentLang = LANGS.includes(savedLang) ? savedLang : 'en';
+
+    /* Add a language selection flow when lang button clicked */
+    document.getElementById('langBtn').addEventListener('click', () => {
+      showLanguageDialog();
     });
 
-    /* --- SPEECH SYNTHESIS --- */
-    function speak(text, langCode) {
+    function showLanguageDialog(){
+      const overlay = document.createElement('div');
+      overlay.style.position='fixed';overlay.style.left=0;overlay.style.top=0;overlay.style.width='100%';overlay.style.height='100%';
+      overlay.style.background='rgba(10,10,10,0.35)';overlay.style.display='grid';overlay.style.placeItems='center';overlay.style.zIndex=2000;
+      const box = document.createElement('div');
+      box.style.background='white';box.style.padding='18px';box.style.borderRadius='12px';box.style.maxWidth='420px';box.style.width='92%';
+      const title = document.createElement('div'); title.style.fontWeight=700; title.style.marginBottom='10px'; title.textContent='Select language';
+      const select = document.createElement('select'); select.style.width='100%'; select.style.padding='10px'; select.style.fontSize='16px';
+      LANGS.forEach(l => {
+        const opt = document.createElement('option'); opt.value = l; opt.textContent = (TRANSLATIONS[l] && TRANSLATIONS[l].siteTitle) ? TRANSLATIONS[l].siteTitle : l;
+        if(l===currentLang) opt.selected=true;
+        select.appendChild(opt);
+      });
+      const actions = document.createElement('div'); actions.style.display='flex';actions.style.justifyContent='flex-end';actions.style.gap='8px';actions.style.marginTop='12px';
+      const cancel = document.createElement('button'); cancel.textContent='Cancel'; cancel.className='btn ghost'; cancel.onclick=()=>document.body.removeChild(overlay);
+      const save = document.createElement('button'); save.textContent='Apply'; save.className='btn primary'; save.onclick=()=>{
+        currentLang = select.value;
+        localStorage.setItem('bankbridge_lang', currentLang);
+        applyTranslations(currentLang);
+        document.body.removeChild(overlay);
+      };
+      actions.appendChild(cancel); actions.appendChild(save);
+      box.appendChild(title); box.appendChild(select); box.appendChild(actions); overlay.appendChild(box); document.body.appendChild(overlay);
+    }
+
+    /* Apply initial translations */
+    applyTranslations(currentLang);
+
+    /* Persist language select in the top-level dropdown if exists */
+    // There's a language select element in introductory section: if present, sync it.
+    (function initInlineLangSelector(){
+      const sel = document.querySelector('select#languageSelect');
+      if(!sel) return;
+      // populate options in preferred language order
+      sel.innerHTML = '';
+      const langNames = {
+        en: 'English', hi: 'हिन्दी', ta: 'தமிழ்', bn: 'বাংলா', te: 'తెలుగు', ml: 'മലയാളം', mr: 'मराठी', gu: 'ગુજરાતી'
+      };
+      LANGS.forEach(l => {
+        const o = document.createElement('option'); o.value=l; o.textContent=langNames[l] || l; sel.appendChild(o);
+      });
+      sel.value = currentLang;
+      sel.addEventListener('change', ()=> {
+        currentLang = sel.value; localStorage.setItem('bankbridge_lang', currentLang); applyTranslations(currentLang);
+      });
+    })();
+
+    /* -------------------------
+       NOTES / NOTEBOOK LOGIC
+    ------------------------- */
+    function loadNotes(){
+      const raw = localStorage.getItem('bankbridge_notes');
+      let notes = raw ? JSON.parse(raw) : [];
+      const list = document.getElementById('noteList'); list.innerHTML='';
+      notes.forEach((n, idx) => {
+        const el = document.createElement('div'); el.className='note';
+        el.innerHTML = `<div style="display:flex;justify-content:space-between;gap:10px"><div style="flex:1">${escapeHtml(n.text)}</div><div style="flex:0 0 auto"><button class="btn" onclick="deleteNote(${idx})">Delete</button></div></div><div style="font-size:12px;color:var(--muted);margin-top:8px">${new Date(n.t).toLocaleString()}</div>`;
+        list.appendChild(el);
+      });
+      document.getElementById('noteCount').textContent = notes.length ? notes.length + ' saved' : '';
+    }
+
+    function saveNote(){
+      const input = document.getElementById('noteInput'); if(!input) return;
+      const text = input.value.trim(); if(!text) return alert('Please enter note text.');
+      const raw = localStorage.getItem('bankbridge_notes'); const notes = raw ? JSON.parse(raw) : [];
+      notes.unshift({text, t: Date.now()}); localStorage.setItem('bankbridge_notes', JSON.stringify(notes));
+      input.value=''; loadNotes();
+    }
+
+    function deleteNote(i){
+      const raw = localStorage.getItem('bankbridge_notes'); const notes = raw ? JSON.parse(raw) : [];
+      notes.splice(i,1); localStorage.setItem('bankbridge_notes', JSON.stringify(notes)); loadNotes();
+    }
+
+    function clearNotes(){ if(confirm('Clear all notes?')){ localStorage.removeItem('bankbridge_notes'); loadNotes(); } }
+    window.saveNote = saveNote; window.clearNotes = clearNotes; window.deleteNote = deleteNote;
+
+    // escape HTML utility
+    function escapeHtml(s){ return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+    // initialize notes
+    document.addEventListener('DOMContentLoaded', loadNotes);
+
+    /* -------------------------
+       SIMPLE MODULES & PROGRESS
+       Modules are local; progress saved to localStorage.
+    ------------------------- */
+    const MODULES = [
+      {id:1,key:'m1Title',title:'Banking Essentials',completed:false},
+      {id:2,key:'m2Title',title:'Benefits and Schemes',completed:false},
+      {id:3,key:'m3Title',title:'Safe Digital Payments',completed:false},
+      {id:4,key:'m4Title',title:'Budgeting & Savings',completed:false}
+    ];
+
+    function openModule(id){
+      const module = MODULES.find(m => m.id===id); if(!module) return;
+      // display a focused dialog with lesson, audio, and quiz
+      showModuleDialog(module);
+    }
+    window.openModule = openModule;
+
+    function showModuleDialog(module){
+      const overlay = document.createElement('div'); overlay.style.position='fixed';overlay.style.inset=0;overlay.style.zIndex=2100;overlay.style.background='rgba(10,10,10,0.35)';overlay.style.display='grid';overlay.style.placeItems='center';
+      const box = document.createElement('div'); box.style.width='min(780px,96%)';box.style.background='white';box.style.borderRadius='12px';box.style.padding='18px';box.style.boxShadow='0 20px 40px rgba(0,0,0,0.12)';
+      const title = document.createElement('h3'); title.textContent = TRANSLATIONS[currentLang][module.key] || module.title;
+      title.style.marginBottom='6px'; title.style.color='var(--primary)'; title.style.fontWeight=700;
+      const body = document.createElement('div'); body.style.color='var(--muted)'; body.style.fontSize='15px'; body.style.marginBottom='10px';
+      body.textContent = getLessonText(module.id);
+      const actions = document.createElement('div'); actions.style.display='flex';actions.style.justifyContent='flex-end';actions.style.gap='10px';actions.style.marginTop='12px';
+      const close = document.createElement('button'); close.className='btn ghost'; close.textContent='Close'; close.onclick=()=>document.body.removeChild(overlay);
+      const play = document.createElement('button'); play.className='btn primary'; play.textContent='Play audio'; play.onclick=()=>{ speakText(getLessonText(module.id)); };
+      const quiz = document.createElement('button'); quiz.className='btn'; quiz.textContent='Start quiz'; quiz.onclick=()=>{ startModuleQuiz(module.id); };
+      actions.appendChild(close); actions.appendChild(quiz); actions.appendChild(play);
+      box.appendChild(title); box.appendChild(body); box.appendChild(actions);
+      overlay.appendChild(box); document.body.appendChild(overlay);
+    }
+
+    function getLessonText(id){
+      // concise lesson text per module (multi-language handled at speak time)
+      const texts = {
+        1: {
+          en: "A bank account keeps your money safe. Learn how to open and use a savings account, how to check your balance, and how to record transactions.",
+          hi: "एक बैंक खाता आपका पैसा सुरक्षित रखता है। बचत खाता खोलने, शेष की जांच करने और लेनदेन रिकॉर्ड करने के तरीके जानें।"
+        },
+        2: {
+          en: "Government schemes can provide direct benefits. Know eligibility, required documents, and where to apply if you qualify.",
+          hi: "सरकारी योजनाएं प्रत्यक्ष लाभ दे सकती हैं। पात्रता, आवश्यक दस्तावेज और आवेदन स्थान जानें।"
+        },
+        3: {
+          en: "Digital payments are convenient but require care. Keep PIN and OTP private, verify payees, and use official apps.",
+          hi: "डिजिटल भुगतान सुविधाजनक हैं पर सावधानी आवश्यक है। PIN और OTP गोपनीय रखें, प्राप्तकर्ताओं की पुष्टि करें।"
+        },
+        4: {
+          en: "Budgeting helps track priorities. Small regular savings build security over time. Use simple weekly goals.",
+          hi: "बजट प्राथमिकताओं को ट्रैक करता है। छोटे नियमित बचत दीर्घकालिक सुरक्षा बनाते हैं।"
+        }
+      };
+      const base = texts[id] || {};
+      return base[currentLang] || base.en || "";
+    }
+
+    function speakText(text){
       const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = langCode + "-IN";
+      // map language codes to speech synthesis locales
+      let locale = 'en-IN';
+      if(currentLang==='hi') locale='hi-IN';
+      if(currentLang==='ta') locale='ta-IN';
+      if(currentLang==='bn') locale='bn-IN';
+      if(currentLang==='te') locale='te-IN';
+      if(currentLang==='ml') locale='ml-IN';
+      if(currentLang==='mr') locale='mr-IN';
+      if(currentLang==='gu') locale='gu-IN';
+      utter.lang = locale;
       utter.rate = 1;
+      window.speechSynthesis.cancel(); // stop prior
       window.speechSynthesis.speak(utter);
     }
 
-    document.getElementById("playLesson").onclick = () => {
-      const lang = langSelect.value;
-      speak(lessons[lang], lang);
-    };
-
-    document.getElementById("voiceSummary").onclick = () => {
-      const lang = langSelect.value;
-      speak(summaryVoice[lang] || summaryVoice.en, lang);
-    };
-
-    /* --- QUIZ FUNCTIONALITY --- */
-    function checkAnswer(correct) {
-      const result = document.getElementById("quizResult");
-      result.textContent = correct ? "✅ Correct! Zero-balance accounts remove deposit barriers." : "❌ Try again. Remember, zero-balance accounts help with easy access.";
-      result.style.fontWeight = "600";
+    function startModuleQuiz(id){
+      // a simple quiz modal tailored by id
+      const overlay = document.createElement('div'); overlay.style.position='fixed';overlay.style.inset=0;overlay.style.zIndex=2200;overlay.style.background='rgba(10,10,10,0.35)';overlay.style.display='grid';overlay.style.placeItems='center';
+      const box = document.createElement('div'); box.style.width='min(720px,96%)';box.style.background='white';box.style.borderRadius='12px';box.style.padding='18px';
+      const q = getQuizForModule(id);
+      const qText = document.createElement('div'); qText.style.fontWeight=700; qText.style.marginBottom='10px'; qText.textContent = q.question;
+      const opts = document.createElement('div'); opts.style.display='flex'; opts.style.flexDirection='column'; opts.style.gap='8px';
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement('button'); btn.className='btn'; btn.textContent=opt; btn.onclick=()=>{
+          const correct = (i===q.answer);
+          recordModuleProgress(id, correct);
+          const msg = document.createElement('div'); msg.style.marginTop='12px'; msg.style.fontWeight=700; msg.style.color = correct ? 'var(--success)' : 'var(--danger)';
+          msg.textContent = correct ? 'Correct' : 'Incorrect — review the lesson';
+          opts.appendChild(msg);
+        };
+        opts.appendChild(btn);
+      });
+      const close = document.createElement('button'); close.className='btn ghost'; close.textContent='Close'; close.style.marginTop='12px'; close.onclick=()=>document.body.removeChild(overlay);
+      box.appendChild(qText); box.appendChild(opts); box.appendChild(close);
+      overlay.appendChild(box); document.body.appendChild(overlay);
     }
 
-    document.getElementById("showQuiz").onclick = () => {
-      document.getElementById("quizBox").style.display = "block";
-      document.getElementById("quizResult").textContent = "";
-    };
-
-    /* --- SCHEME SECTION TOGGLE --- */
-    document.getElementById("schemeBtn").onclick = () => {
-      document.getElementById("schemeText").style.display = "block";
-    };
-
-    /* --- OFFLINE HELP SECTION --- */
-    document.getElementById("offlineHelp").onclick = () => {
-      document.getElementById("offlineText").style.display = "block";
-    };
-
-    /* --- SERVICE WORKER FOR OFFLINE CACHE --- */
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register(URL.createObjectURL(new Blob([`
-        const CACHE_NAME = 'bankbridge-v3';
-        const FILES = ['./'];
-        self.addEventListener('install', e => e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(FILES))));
-        self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));
-      `], {type:'text/javascript'})));
+    function getQuizForModule(id){
+      const pool = {
+        1: {
+          question: {en:'What does a savings account help you do?', hi:'एक बचत खाता आपकी किसमें सहायता करता है?'}[currentLang || 'en'],
+          options: {en:['Save money securely','Get a higher salary','Avoid all taxes'], hi:['पैसा सुरक्षित रूप से बचाना','उच्च वेतन प्राप्त करना','सभी करों से बचना']}[currentLang] || ['Save money securely','Get a higher salary','Avoid all taxes'],
+          answer: 0
+        },
+        2: {
+          question: {en:'Which scheme provides zero-balance accounts?', hi:'कौन सी योजना शून्य-बैलेंस खाते प्रदान करती है?'}[currentLang],
+          options: {en:['PMJDY','PM-KISAN','APY'], hi:['PMJDY','PM-KISAN','APY']}[currentLang],
+          answer: 0
+        },
+        3: {
+          question: {en:'What should you never share online?', hi:'ऑनलाइन आप कभी क्या साझा नहीं करना चाहिए?'}[currentLang],
+          options: {en:['OTP and PIN','Bank name','Branch address'], hi:['OTP और PIN','बैंक का नाम','शाखा पता']}[currentLang],
+          answer: 0
+        },
+        4: {
+          question: {en:'A simple savings goal is best set on which cadence?', hi:'सरल बचत लक्ष्य किस आवृत्ति पर सर्वोत्तम होता है?'}[currentLang],
+          options: {en:['Weekly','Every 10 years','Once a lifetime'], hi:['साप्ताहिक','हर 10 साल','एक बार जिंदगी में']}[currentLang],
+          answer: 0
+        }
+      };
+      return pool[id] || pool[1];
     }
+
+    function recordModuleProgress(id, passed){
+      const raw = localStorage.getItem('bankbridge_progress'); const progress = raw ? JSON.parse(raw) : {};
+      progress['module_'+id] = passed ? 'passed' : (progress['module_'+id] || 'attempted');
+      localStorage.setItem('bankbridge_progress', JSON.stringify(progress));
+      updateProgressUI();
+    }
+
+    function updateProgressUI(){
+      const raw = localStorage.getItem('bankbridge_progress'); const progress = raw ? JSON.parse(raw) : {};
+      const container = document.getElementById('progressBars'); container.innerHTML='';
+      MODULES.forEach(m=>{
+        const status = progress['module_'+m.id] || 'not';
+        const bar = document.createElement('div'); bar.style.display='flex'; bar.style.justifyContent='space-between'; bar.style.alignItems='center';
+        const label = document.createElement('div'); label.textContent = (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][m.key]) ? TRANSLATIONS[currentLang][m.key] : m.title;
+        const badge = document.createElement('div'); badge.style.fontSize='13px'; badge.style.color='var(--muted)'; badge.textContent = (status==='passed'? 'Completed' : status==='attempted'? 'Attempted' : 'Not started');
+        bar.appendChild(label); bar.appendChild(badge); container.appendChild(bar);
+      });
+    }
+
+    function resetProgress(){ if(confirm('Reset all progress?')){ localStorage.removeItem('bankbridge_progress'); updateProgressUI(); } }
+    function exportProgress(){
+      const raw = localStorage.getItem('bankbridge_progress') || '{}';
+      const blob = new Blob([raw], {type:'application/json'}); const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'bankbridge-progress.json'; a.click(); URL.revokeObjectURL(url);
+    }
+    window.resetProgress = resetProgress; window.exportProgress = exportProgress;
+
+    // initial progress UI
+    updateProgressUI();
+
+    /* -------------------------
+       ASSISTANT (BASIC PATTERN RESPONDER + VOICE)
+       Designed to be local, private, and deterministic.
+    ------------------------- */
+    const assistantPatterns = [
+      {pattern:/open.*account|how to open account|open account/i, responseKey: {en:'To open an account, visit a branch with your ID and address proof. We provide a checklist to bring.', hi:'खाता खोलने के लिए, पहचान और पता प्रमाण के साथ शाखा पर जाएँ। चेकलिस्ट उपलब्ध है।'}},
+      {pattern:/pmjdy|zero balance|जिरो|शून्य/i, responseKey: {en:'PMJDY enables zero-balance savings accounts for financial inclusion.', hi:'PMJDY शून्य-बैलेंस बचत खाते सक्षम करता है।'}},
+      {pattern:/otp|pin|password/i, responseKey: {en:'Never share your OTP or PIN. Your bank will never ask for it.', hi:'कभी भी अपना OTP या PIN साझा न करें। बैंक कभी नहीं पूछेगा।'}},
+      {pattern:/budget|save|savings/i, responseKey: {en:'Begin with small, regular savings. Even modest weekly savings grow over time.', hi:'छोटी नियमित बचत से शुरू करें। यह समय के साथ बढ़ती है।'}}
+    ];
+
+    function assistantReply(query){
+      const q = query.toLowerCase();
+      for(const p of assistantPatterns){
+        if(p.pattern.test(q)) return p.responseKey[currentLang] || p.responseKey.en;
+      }
+      // fallback
+      return (currentLang==='hi') ? 'कृपया अलग शब्दों में पूछें, या उपलब्ध मॉड्यूल देखें।' : 'Please phrase the question differently, or try one of the available modules.';
+    }
+
+    // chat send handler
+    document.getElementById('chatSend').addEventListener('click', ()=> {
+      const input = document.getElementById('chatInput'); const val = input.value.trim(); if(!val) return;
+      addChatMessage('user', val);
+      const resp = assistantReply(val);
+      setTimeout(()=> { addChatMessage('assistant', resp); speakText(resp); }, 300);
+      input.value='';
+    });
+
+    // add chat message
+    function addChatMessage(sender, text){
+      const win = document.getElementById('chatWindow');
+      const el = document.createElement('div'); el.style.marginBottom='8px';
+      if(sender==='user'){
+        el.innerHTML = `<div style="text-align:right"><div style="display:inline-block;background:linear-gradient(90deg,var(--primary),var(--accent));color:white;padding:8px 10px;border-radius:10px">${escapeHtml(text)}</div></div>`;
+      } else {
+        el.innerHTML = `<div style="text-align:left"><div style="display:inline-block;background:#eef6ff;color:var(--primary);padding:8px 10px;border-radius:10px">${escapeHtml(text)}</div></div>`;
+      }
+      win.appendChild(el); win.scrollTop = win.scrollHeight;
+    }
+
+    // voice input: use Web Speech API if available
+    const voiceBtn = document.getElementById('voiceBtn');
+    if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window){
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recog = new SpeechRecognition(); recog.lang = (currentLang==='hi'?'hi-IN':'en-IN'); recog.interimResults=false; recog.maxAlternatives=1;
+      voiceBtn.addEventListener('click', ()=> {
+        try {
+          recog.start();
+        } catch(e) { /* ignore */ }
+      });
+      recog.onresult = (evt) => {
+        const text = evt.results[0][0].transcript;
+        addChatMessage('user', text);
+        const resp = assistantReply(text);
+        addChatMessage('assistant', resp);
+        speakText(resp);
+      };
+      recog.onerror = (e) => { addChatMessage('assistant', (currentLang==='hi'?'वॉइस उपलब्ध नहीं':'Voice not available')); }
+    } else {
+      voiceBtn.disabled = true; voiceBtn.title = 'Speech recognition not supported in this browser';
+    }
+
+    // help button shows quick tips
+    document.getElementById('helpBtn').addEventListener('click', ()=> {
+      const tips = (currentLang==='hi') ? 'उदाहरण प्रश्न: "खाता कैसे खोलें", "OTP क्या है?"' : 'Example questions: "How to open account", "What is OTP?"';
+      addChatMessage('assistant', tips);
+      speakText(tips);
+    });
+
+    /* -------------------------
+       QUICK ACTIONS: checklists, local help, download audio
+    ------------------------- */
+    function openChecklist(){
+      const checklist = (currentLang==='hi') ? 'ज़रूरी दस्तावेज: 1) पहचान पत्र 2) पता प्रमाण 3) पासपोर्ट आकार फोटो' : 'Required documents: 1) ID 2) Address proof 3) Passport-size photo';
+      alert(checklist);
+    }
+    window.openChecklist = openChecklist;
+
+    function showLocalHelp(){
+      // for the offline-first approach, display guidance text rather than external maps
+      const info = (currentLang==='hi') ? 'नजदीकी बैंक मित्र या सीएससी के लिए अपने नजदीकी बैंक की शाखा पते से पूछें। स्थानीय पंचायत कार्यालय में भी जानकारी मिल सकती है।' : 'For local Bank Mitra or CSC, ask at your nearest bank branch or local panchayat office.';
+      alert(info);
+    }
+    window.showLocalHelp = showLocalHelp;
+
+    function downloadAudio(){
+      // generate a small WAV/Blob from TTS? Browsers don't allow direct file generation from speechSynthesis reliably.
+      // Provide fallback: present the user with the lesson text they can save manually.
+      const lesson = getLessonText(1);
+      const title = (currentLang==='hi') ? 'Lesson1.txt' : 'Lesson1.txt';
+      const blob = new Blob([lesson], {type:'text/plain'}); const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = title; a.click(); URL.revokeObjectURL(url);
+      alert((currentLang==='hi') ? 'पाठ डाउनलोड किया गया (टेक्स्ट फाइल)' : 'Lesson downloaded (text file)');
+    }
+    window.downloadAudio = downloadAudio;
+
+    /* -------------------------
+       OFFLINE CACHE: register a service worker via blob URL
+       This caches the root document and allows offline reload after first visit.
+    ------------------------- */
+    if('serviceWorker' in navigator){
+      const swCode = `
+        const CACHE='bankbridge-static-v1';
+        const OFFLINE_FILES=['./'];
+        self.addEventListener('install', e => {
+          e.waitUntil(caches.open(CACHE).then(c => c.addAll(OFFLINE_FILES)));
+          self.skipWaiting();
+        });
+        self.addEventListener('activate', e => {
+          e.waitUntil(self.clients.claim());
+        });
+        self.addEventListener('fetch', e => {
+          e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
+        });
+      `;
+      try {
+        const blob = new Blob([swCode], {type:'text/javascript'});
+        navigator.serviceWorker.register(URL.createObjectURL(blob)); // register SW
+      } catch(e) {
+        console.warn('Service worker registration failed', e);
+      }
+    }
+
+    /* -------------------------
+       Helper: scroll to id
+    ------------------------- */
+    window.scrollToId = function(id){
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    };
+    window.scrollToId = window.scrollToId;
+
+    /* -------------------------
+       Notebook open
+    ------------------------- */
+    function openNotebook(){ scrollToId('notebook'); }
+    window.openNotebook = openNotebook;
+
+    /* -------------------------
+       Load persisted language and initial UI update
+    ------------------------- */
+    document.addEventListener('DOMContentLoaded', () => {
+      applyTranslations(currentLang);
+      // ensure any text placeholders set
+      const chatInput = document.getElementById('chatInput'); if(chatInput){
+        chatInput.placeholder = (currentLang==='hi') ? 'प्रश्न लिखें...' : 'Type your question...';
+      }
+      const noteInput = document.getElementById('noteInput'); if(noteInput) noteInput.placeholder = (currentLang==='hi' ? 'अपना नोट यहाँ लिखें' : 'Write a note');
+      loadNotes();
+      updateProgressUI();
+    });
+
+  })();
   </script>
 </body>
 </html>
